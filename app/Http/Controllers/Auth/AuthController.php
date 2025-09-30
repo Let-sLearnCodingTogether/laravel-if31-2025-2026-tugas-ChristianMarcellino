@@ -23,6 +23,9 @@ class AuthController extends Controller
             $validated = $request->safe()->all();
             $validated['password'] = Hash::make($validated['password']);
             $user = User::create($validated);
+            return response()->json([
+                'message' => "User Registered"
+            ]);
         }catch(Exception $e){
             return response()->json([
                 'message' => 'Failed to add user',
