@@ -14,7 +14,29 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     public function login(LoginRequest $request){
-        $validated = $request->safe()->all();
+        try {
+            $validated = $request->safe()->all();
+
+            if(!Auth::attempt($validated)){
+                return response()->json([
+                    'message' => 'These provided credentials are not registered!',
+                    'error' => $e->getMessage(),
+                ]);
+            }
+            $user= $request->user();
+            $token = $user->createToken('api', ['*'])->plainTextToken;
+            return response()->json([
+                'message' => "User Logged",
+                'data' => $user,
+                'token' => $token,
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Failed to add user',
+                'error' => $e->getMessage(),
+            ],500);
+        }
+        
 
     }
 
@@ -25,12 +47,12 @@ class AuthController extends Controller
             $user = User::create($validated);
             return response()->json([
                 'message' => "User Registered"
-            ]);
+            ], 201);
         }catch(Exception $e){
             return response()->json([
-                'message' => 'Failed to add user',
+                'message' => 'Failed to login',
                 'error' => $e->getMessage(),
-            ]);
+            ], 500);
         }
     }
 
