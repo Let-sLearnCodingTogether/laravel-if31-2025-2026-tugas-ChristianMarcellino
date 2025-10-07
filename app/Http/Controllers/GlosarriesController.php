@@ -4,31 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\Glosarries;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreGlossariesRequest;
 
 class GlosarriesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StoreGlossariesRequest $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+        try{
+            $validated = $request->safe()->all();
+            $validated[user_id] = $request->user()->id;
+            $response = Glossaries::create($validated);
+            return response()->json([
+                'message' => 'Data added successfully',
+                'data' => $response
+            ], 201);
+        }catch(Exception $e){
+            return response()->json([
+                'message' => 'Failed to add data',
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 
     /**
@@ -39,25 +40,12 @@ class GlosarriesController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Glosarries $glosarries)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Glosarries $glosarries)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Glosarries $glosarries)
     {
         //
