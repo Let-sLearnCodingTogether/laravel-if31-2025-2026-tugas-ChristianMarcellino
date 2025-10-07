@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\GlossariesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,4 +15,6 @@ Route::middleware('guest')->group(function() {
 
 Route::middleware('auth:sanctum')->group(function(){
     Route::post('/user/logout', [AuthController::class, 'logout']);
+    Route::apiResource('glossaries', GlossariesController::class)
+    ->middlewareFor(['show','update','destroy'], 'ensureCreator');
 });

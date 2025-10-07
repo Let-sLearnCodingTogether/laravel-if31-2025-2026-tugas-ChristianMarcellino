@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('glosarries', function (Blueprint $table) {
+        Schema::create('glossaries', function (Blueprint $table) {
             $table->id();
             $table->string('term');
             $table->string('definition');

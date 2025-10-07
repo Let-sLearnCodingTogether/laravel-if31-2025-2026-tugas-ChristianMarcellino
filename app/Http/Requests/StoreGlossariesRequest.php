@@ -26,7 +26,6 @@ class StoreGlossariesRequest extends FormRequest
             'term' => 'required|string',
             'definition' => 'required|string',
             'source' => 'required',
-            'user_id' => 'required'
         ];
     }
 }
