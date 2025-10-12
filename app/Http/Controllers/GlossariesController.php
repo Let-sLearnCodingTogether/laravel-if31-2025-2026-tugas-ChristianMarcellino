@@ -48,7 +48,17 @@ class GlossariesController extends Controller
      */
     public function show(Glossaries $glossary)
     {
-        //
+        try {
+            return response()->json([
+                'message' => 'Successfully Showing Data',
+                'data' => $glosary->where('user_id' , Auth::user()->id)->get(),
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Failed to show data',
+                'error' => $e->getMessage()
+            ],500);
+        }
     }
 
 
