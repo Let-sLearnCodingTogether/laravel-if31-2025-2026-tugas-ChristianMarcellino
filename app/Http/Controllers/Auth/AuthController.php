@@ -46,12 +46,13 @@ class AuthController extends Controller
             $validated['password'] = Hash::make($validated['password']);
             $user = User::create($validated);
             return response()->json([
-                'message' => "User Registered"
+                'message' => "User Registered",
+                'data' => $user
             ], 201);
         }catch(Exception $e){
             return response()->json([
                 'message' => 'Failed to login',
-                'error' => $e->getMessage(),
+                'error' => $e->getMessage()
             ], 500);
         }
     }
@@ -64,7 +65,7 @@ class AuthController extends Controller
             ], 200);
         }catch(Exception $e){
             return response()->json([
-                'error' => $e->getMessage(),
+                'error' => $e->getMessage()
             ], 500);
         }
     }

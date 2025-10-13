@@ -51,7 +51,7 @@ class GlossariesController extends Controller
         try {
             return response()->json([
                 'message' => 'Successfully Showing Data',
-                'data' => $glosary->where('user_id' , Auth::user()->id)->get(),
+                'data' => $glossary->where('user_id' , Auth::user()->id)->get(),
             ], 200);
         } catch (Exception $e) {
             return response()->json([
@@ -64,7 +64,7 @@ class GlossariesController extends Controller
 
     public function update(Request $request, Glossaries $glossary)
     {
-        //
+        
     }
 
     public function destroy(Glossaries $glossary)

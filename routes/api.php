@@ -9,12 +9,12 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::middleware('guest')->group(function() {
-    Route::post('/user/register', [AuthController::class, 'register']);
-    Route::post('/user/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
 });
 
 Route::middleware('auth:sanctum')->group(function(){
-    Route::post('/user/logout', [AuthController::class, 'logout']);
-    Route::apiResource('glossaries', GlossariesController::class)
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::apiResource('glossary', GlossariesController::class)
     ->middlewareFor(['show','update','destroy'], 'ensureCreator');
 });
