@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "f3547c02-a8fd-4c25-8b9a-e76047f6b9c6",
+		"name": "Glosarium Istilah",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47489836"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": []
+		},
+		{
+			"name": "Glossary",
+			"item": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "wawan@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Wawan",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "wawan123",
+							"type": "text"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "wawan123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
