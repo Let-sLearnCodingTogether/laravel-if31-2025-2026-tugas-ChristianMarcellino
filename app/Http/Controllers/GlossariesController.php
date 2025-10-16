@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Glossaries;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Exception;
 use App\Http\Requests\StoreGlossariesRequest;
 
 class GlossariesController extends Controller
