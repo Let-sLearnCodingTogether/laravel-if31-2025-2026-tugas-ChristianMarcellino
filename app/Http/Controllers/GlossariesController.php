@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 use App\Http\Requests\StoreGlossariesRequest;
+use App\Http\Requests\UpdateGlossariesRequest;
 
 class GlossariesController extends Controller
 {
@@ -63,9 +64,27 @@ class GlossariesController extends Controller
     }
 
 
-    public function update(Request $request, Glossaries $glossary)
+    public function update(UpdateGlossariesRequest $request, Glossaries $glossary)
     {
-        
+        try {
+            $validated = $request->safe()->all();
+            if($glossary->update($validated)){
+                return response()->json([
+                    'message' => 'Data Successfully Updated',
+                    'data' => $glossary
+                ]);
+            }else{
+                return response()->json([
+                    'message' => 'Data not Updated',
+                    'data' => null
+                ]);
+            }
+        }catch(Exception $e){
+            return response()->json([
+                'message' => 'Failed to update data',
+                'error'=> $e->getMessage(),
+            ]);
+        }
     }
 
     public function destroy(Glossaries $glossary)
