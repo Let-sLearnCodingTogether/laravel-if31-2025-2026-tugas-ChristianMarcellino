@@ -1,8 +1,8 @@
 import { Button, LoadingButton } from "@components/Button"
 import Input from "@components/Input"
 import { useId, useState } from "react";
-import http from "../../api/api";
-import { useNavigate } from 'react-router';
+import http from "@api/api";
+import { useNavigate, NavLink } from 'react-router';
 import { AlertList } from "@components/Alert";
 
 export default function Register(){
@@ -14,7 +14,7 @@ export default function Register(){
         password_confirmation : "",
     })
     const [isLoading, setIsLoading] = useState(false)
-    const [errorItems, setErrorItems] = useState()
+    const [errorItems, setErrorItems] = useState([])
     const [showAlert, setShowAlert] = useState(false)
 
     const handleFormChange = (e) => {
@@ -26,7 +26,7 @@ export default function Register(){
         })
     }
 
-    const handleLogin = async (e)=>{
+    const handleRegister = async (e)=>{
         e.preventDefault()
         try{
             setShowAlert(false)
@@ -39,10 +39,25 @@ export default function Register(){
             }
         }catch(error){
             setShowAlert(true)
+            const data = error.response.data.errors
+            const errorEmail = data?.email ?? []
+            const errorName = data?.name ?? []
+            const errorPassword = data?.password ?? []
+            var errorListEmail =""
+            var errorListName =""
+            var errorListPassword =""
+            for(const errorList of errorEmail){
+                errorListEmail = errorList
+            }
+            for(const errorList of errorName){
+                errorListName = errorList
+            }
+            for(const errorList of errorPassword){
+                errorListPassword = errorList
+            }
+
             setErrorItems([
-                "Email already in use", 
-                "Password must be at least 8 characters", 
-                "Password and password confirmation do not match"
+                errorListEmail, errorListName, errorListPassword
             ])
         }finally{
             setIsLoading(false)
@@ -50,7 +65,12 @@ export default function Register(){
     }
 
     return <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-4">
-          <form onSubmit={handleLogin}
+        {showAlert && <AlertList onClose={() => setShowAlert(false)} items={errorItems} title="Error!"></AlertList>}
+        
+        {/* {errorItems.map((item)=>(
+            <p>{item}</p>
+        ))} */}
+          <form onSubmit={handleRegister}
             className="bg-white w-full max-w-md rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl">
             <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Create Your Account</h2>
             <div className="space-y-4">
@@ -67,15 +87,21 @@ export default function Register(){
                     {form.password_confirmation && <p className={`text-sm font-medium ${ form.password.length < 8 ? "text-red-500" : "text-green-500" }`}>
                     {form.password_confirmation === form.password ? "Password match" : "Password do not match"}
                     </p>}
-                </div>        
+                </div>
+                        
             </div>
       
             <div className="mt-8">
-              {
-                isLoading ?  <LoadingButton/> : 
-                <Button type="submit" content="Register" className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow hover:bg-indigo-700 transition-all duration-200"/>
+              {isLoading ?  <LoadingButton/> : 
+                <Button type="submit" content="Register" disabled={form.password_confirmation !== form.password || form.password.length < 8 || !form.email.trim() || !form.name.trim()}/>
               }
             </div>
+            <NavLink to="/login" className="block text-center text-sm text-gray-600 mt-4">
+                Already have an account?{" "}
+                <span className="text-indigo-600 font-semibold hover:underline transition-colors">
+                    Sign In
+                </span>
+            </NavLink>
           </form>
         </div>
 }
