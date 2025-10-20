@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Button } from "@components/Button"
+import { Button, LoadingButton } from "@components/Button"
 import { Input } from "@components/Input"
 import http from "../../api/api"
 
@@ -25,7 +25,7 @@ export default function CreateGlossary() {
         e.preventDefault()
         try{
             setIsLoading(true)
-            const response = http.post("/glossary", form)
+            const response = await http.post("/glossary", form)
         }catch(error){
             setIsLoading(false)
             console.log(error)
@@ -39,14 +39,14 @@ export default function CreateGlossary() {
     <form onSubmit={handleCreateForm} className="bg-white w-full max-w-md rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Create Your Account</h2>
                 <div className="space-y-4">
-                    <Input required id={useId()} name="term" value={form.term} type="email" onChange={handleFormChange} label="Term"/>
+                    <Input required id={useId()} name="term" value={form.term} type="text" onChange={handleFormChange} label="Term"/>
                     <Input required id={useId()} name="definition" value={form.definition} type="text" onChange={handleFormChange}label="Definition"/>
                     <Input required id={useId()} name="source" value={form.source} type="text" onChange={handleFormChange}label="Source"/>
                 </div>
           
                 <div className="mt-8">
                   {isLoading ?  <LoadingButton/> : 
-                    <Button type="submit" content="Register" disabled={form.password_confirmation !== form.password || form.password.length < 8 || !form.email.trim() || !form.name.trim()}/>
+                    <Button type="submit" content="Register" disabled={!form.term.trim() || !form.definition.trim() || !form.source.trim()}/>
                   }
                 </div>
                 </form>
