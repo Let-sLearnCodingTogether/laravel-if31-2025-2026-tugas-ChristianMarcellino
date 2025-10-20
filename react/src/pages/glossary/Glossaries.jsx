@@ -1,11 +1,11 @@
 import { useNavigate, NavLink } from "react-router";
 import { Button } from "@components/Button";
 import http from "@api/api";
+import { useEffect } from "react";
 export default function Glossaries() {
   const navigation = useNavigate();
 
   const handleLogout = async(e)=>{
-    e.preventDefault()
     try{
         const response = await http.post("/logout")
         console.log(response)
@@ -17,17 +17,19 @@ export default function Glossaries() {
     }catch(error){
         console.log(error)
     }
+
+    
   }
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-4">
-      {/* Main content card */}
+      {JSON.stringify(sessionStorage.getItem("token"))}
       <div className="bg-white w-full max-w-3xl rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl">
         <header className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold text-gray-800">
             Welcome Back 👋
           </h1>
-            <Button content="Logout" onClick={()=> handleLogout()}></Button>
+          {sessionStorage.getItem("token") ? <Button content="Logout" onClick={()=> handleLogout()}></Button> : <NavLink to="/login"><Button content="Logout"></Button></NavLink> }
         </header>
 
         <section className="space-y-6">
