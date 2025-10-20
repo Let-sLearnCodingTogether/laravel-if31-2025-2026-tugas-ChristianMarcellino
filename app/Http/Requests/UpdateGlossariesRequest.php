@@ -23,7 +23,9 @@ class UpdateGlossariesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            
+            'term' => 'sometimes|string',
+            'definition' => 'sometimes|string',
+            'source' => 'sometimes',
         ];
     }
 }
