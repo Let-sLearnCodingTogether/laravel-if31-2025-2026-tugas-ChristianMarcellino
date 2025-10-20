@@ -30,7 +30,7 @@ export default function Login(){
             setIsLoading(true)
             const response = await http.post("/login", form)
             if(response.status === 200){
-                sessionStorage.setItem("token", response)
+                sessionStorage.setItem("token", response.data.token)
                 navigation('/', {
                     replace: true
                 })
