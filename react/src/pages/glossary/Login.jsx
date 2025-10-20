@@ -23,7 +23,7 @@ export default function Login(){
         })
     }
 
-    const handleRegister = async (e)=>{
+    const handleLogin = async (e)=>{
         e.preventDefault()
         try{
             setShowAlert(false)
@@ -44,7 +44,7 @@ export default function Login(){
 
     return <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-4">
         {showAlert && <AlertInfo color="red" onClose={() => setShowAlert(false)} alertType="Error! " alertContent=" These provided credentials are not registered!"></AlertInfo>}
-          <form onSubmit={handleRegister}
+          <form onSubmit={handleLogin}
             className="bg-white w-full max-w-md rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl">
             <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Login Form</h2>
             <div className="space-y-4">
@@ -56,7 +56,7 @@ export default function Login(){
             <div className="mt-8">
               {
                 isLoading ?  <LoadingButton/> : 
-                <Button type="submit" content="Register" disabled={!form.password.trim() || !form.email.trim()}/>
+                <Button type="submit" content="Login" disabled={!form.password.trim() || !form.email.trim()}/>
               }
             </div>
             <NavLink to="/register" className="block text-center text-sm text-gray-600 mt-4">
