@@ -38,7 +38,6 @@ export default function Register(){
                 })
             }
         }catch(error){
-            setShowAlert(true)
             const data = error.response.data.errors
             const errorEmail = data?.email ?? []
             const errorName = data?.name ?? []
@@ -59,12 +58,14 @@ export default function Register(){
             setErrorItems([
                 errorListEmail, errorListName, errorListPassword
             ])
+            setShowAlert(true)
         }finally{
             setIsLoading(false)
         }
     }
 
     return <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-4">
+        
         {showAlert && <AlertList onClose={() => setShowAlert(false)} items={errorItems} title="Error!"></AlertList>}
         
         {/* {errorItems.map((item)=>(

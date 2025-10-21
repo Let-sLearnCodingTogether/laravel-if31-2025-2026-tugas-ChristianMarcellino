@@ -1,36 +1,16 @@
-import { useNavigate, NavLink } from "react-router";
-import { Button } from "@components/Button";
-import http from "@api/api";
-import { useEffect } from "react";
-export default function Glossaries() {
-  const navigation = useNavigate();
+import Navbar from "@components/Navbar";
 
-  const handleLogout = async(e)=>{
-    try{
-        const response = await http.post("/logout")
-        console.log(response)
-        if(response.status === 200){
-          sessionStorage.removeItem("token")
-            navigation('/login',{
-                replace : true
-            })
-        }
-    }catch(error){
-        console.log(error)
-    }
-
-    
-  }
-
+export default function Home() {
+  
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-4">
-      <div className="bg-white w-full max-w-3xl rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl">
+      <Navbar></Navbar>
+      <div className="mt-20 bg-white w-full max-w-3xl rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl">
         <header className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold text-gray-800">
-            Welcome Back 👋
+            {sessionStorage.key("token") ? `Welcome Back ${JSON.parse(sessionStorage.getItem("user")).username} 👋` : "Welcome"}
           </h1>
-          {sessionStorage.getItem("token") ? <Button content="Logout" onClick={()=> handleLogout()}></Button> : <NavLink to="/login"><Button content="Login"></Button></NavLink> }
-        </header>
+          </header>
 
         <section className="space-y-6">
           <div className="bg-gray-50 rounded-xl p-6 shadow-sm hover:shadow-md transition">

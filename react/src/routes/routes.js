@@ -5,7 +5,7 @@ const routes = createBrowserRouter([
         path : "/",
         lazy : {
             Component : async()=> {
-                const component = await import("@pages/glossary/Glossaries")
+                const component = await import("@pages/glossary/Home")
                 return component.default
             }
         }
@@ -42,6 +42,15 @@ const routes = createBrowserRouter([
         lazy : {
             Component : async()=> {
                 const component = await import("@pages/glossary/UpdateGlossary")
+                return component.default
+            }
+        }
+    },
+    {
+        path : "/glossary",
+        lazy : {
+            Component : async() =>{
+                const component = await import("@pages/glossary/Glossary")
                 return component.default
             }
         }

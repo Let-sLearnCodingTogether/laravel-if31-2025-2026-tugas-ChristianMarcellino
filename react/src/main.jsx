@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import '@css/style.css'
 import { RouterProvider } from 'react-router'
 import routes from "../src/routes/routes"
-
+import Navbar from '@components/Navbar'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
