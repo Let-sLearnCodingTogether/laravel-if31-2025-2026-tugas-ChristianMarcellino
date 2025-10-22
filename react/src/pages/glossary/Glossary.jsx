@@ -39,9 +39,7 @@ export default function Glossary() {
   }, [fetchGlossaries]);
 
   if (loader) {
-    return <div>
-      <Loader/>
-    </div> 
+    return <Loader/>
   }
 
   if (!loader && glossaries.length === 0) {
