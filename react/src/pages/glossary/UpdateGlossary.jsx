@@ -71,7 +71,7 @@ export default function UpdateGlossary() {
       }
       console.log(response);
     }catch(error){
-      console.log(error)
+      setShowErrorAlert(true)
     }finally{
       setIsLoading(false)
     }
