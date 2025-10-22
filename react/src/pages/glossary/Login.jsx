@@ -1,11 +1,20 @@
 import { Button, LoadingButton } from "@components/Button"
 import Input from "@components/Input"
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import http from "@api/api";
 import { useNavigate, NavLink } from 'react-router';
 import { AlertInfo } from "@components/Alert";
+import Loader from "@components/Loader";
 
 export default function Login(){
+    const [loader, setLoader] = useState(true)
+    useEffect(()=>{
+        setTimeout(()=>{
+        setLoader(false)
+        }, 500)
+    }, [])
+
+    
     const navigation = useNavigate()
     const [form,setForm] = useState({
         email : "",
@@ -46,6 +55,9 @@ export default function Login(){
         }finally{
             setIsLoading(false)
         }
+    }
+    if(loader){
+        return <Loader/>
     }
 
     return <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-4">

@@ -9,8 +9,11 @@ export default function Navbar() {
   const [showProfile, setShowProfile] = useState(false)
 
   const handleLogout = () => {
-    sessionStorage.removeItem("token");
-    navigate("/login", { replace: true });
+    sessionStorage.removeItem("token")
+    sessionStorage.removeItem("user")
+    navigate("/login", 
+      { replace: true }
+    )
   };
 
   return (
@@ -19,7 +22,7 @@ export default function Navbar() {
         className="text-xl font-bold text-gray-700 cursor-pointer"
         onClick={() => navigate("/")}
       >
-        MyApp
+        Glossary
       </h1>
 
       

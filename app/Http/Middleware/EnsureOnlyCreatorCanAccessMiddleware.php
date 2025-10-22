@@ -19,7 +19,6 @@ class EnsureOnlyCreatorCanAccessMiddleware
         if ($request->user()->id != $glossary->user_id) {
             return response()->json([
                 'Message' => "Unauthorized",
-                'data' => $request->user()->name,
             ], 403);
         }
         return $next($request);

@@ -1,22 +1,36 @@
 import { useState, useEffect, useCallback } from "react";
 import { NavLink } from "react-router";
 import http from "@api/api";
-import { Button, LoadingButton } from "@components/Button";
+import { Button } from "@components/Button";
 import Navbar from "@components/Navbar";
+import Loader from "@components/Loader";
+import { AlertInfo } from "@components/Alert";
 
 export default function Glossary() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [loader, setLoader] = useState(false);
   const [glossaries, setGlossaries] = useState([]);
+  const [showAlert, setShowAlert] = useState(false)
+  const [showErrorAlert, setShowErrorAlert] = useState(false)
+  const deleteGlossary = async(id)=>{
+    try{
+      fetchGlossaries()
+      const response = await http.delete(`/glossary/${id}`)
+      setShowAlert(true)
+    }catch(error){
+      console.log(error)
+      setShowErrorAlert(true)
+    }
+  }
 
   const fetchGlossaries = useCallback(async () => {
     try {
-      setIsLoading(true);
+      setLoader(true);
       const response = await http.get("/glossary");
       setGlossaries(response.data.data);
     } catch (error) {
       console.error(error);
     } finally {
-      setIsLoading(false);
+      setLoader(false);
     }
   }, []);
 
@@ -24,15 +38,13 @@ export default function Glossary() {
     fetchGlossaries();
   }, [fetchGlossaries]);
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
-        <LoadingButton content="Loading..." />
-      </div>
-    );
+  if (loader) {
+    return <div>
+      <Loader/>
+    </div> 
   }
 
-  if (!isLoading && glossaries.length === 0) {
+  if (!loader && glossaries.length === 0) {
     return (
       <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-4">
         <Navbar></Navbar>
@@ -53,6 +65,9 @@ export default function Glossary() {
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-4">
+    {showAlert && <AlertInfo onClose={()=>setShowAlert(false)} alertType="Info" alertContent="Glossary Deleted" color="blue" />}
+    {showErrorAlert && <AlertInfo onClose={()=>setShowErrorAlert(false)} alertType="Error! " alertContent="Failed to delete data" color="red" /> }
+      
       <Navbar></Navbar>
       <div className=" mt-20 bg-white w-full max-w-4xl rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl">
         <header className="flex justify-between items-center mb-8">
@@ -82,10 +97,10 @@ export default function Glossary() {
               )}
 
               <div className="mt-4 flex justify-end gap-2">
-                <Button
-                  content="Edit"
-                  onClick={() => navigate(`/update-glossary/${item.id}`)}
-                />
+                <NavLink to={`/update-glossary/${item.id}`}>
+                  <Button content="Edit"/>
+                </NavLink>
+                <Button onClick={()=> deleteGlossary(item.id)} content="Delete"/>
               </div>
             </div>
           ))}
@@ -93,7 +108,7 @@ export default function Glossary() {
       </div>
 
       <footer className="mt-8 text-sm text-gray-500">
-        © {new Date().getFullYear()} My App. All rights reserved.
+        © {new Date().getFullYear()} Glossary. All rights reserved.
       </footer>
     </div>
   );
