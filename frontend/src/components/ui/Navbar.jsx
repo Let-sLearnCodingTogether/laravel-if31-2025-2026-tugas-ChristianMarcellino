@@ -17,20 +17,20 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="top-0 fixed w-[75%] flex justify-between items-center bg-white shadow-md rounded-2xl px-6 py-3">
+    <nav className="top-0 fixed sm:w-[75%] w-full flex justify-between items-center bg-white shadow-md rounded-2xl px-3 sm:px-6 py-2 sm:py-3 left-0 sm:left-1/2 sm:-translate-x-1/2 z-40">
       <h1
-        className="text-xl font-bold text-gray-700 cursor-pointer"
+        className="text-md sm:text-xl font-bold text-gray-700 cursor-pointer"
         onClick={() => navigate("/")}
       >
         Glossary
       </h1>
 
       
-      <div className="flex gap-6">
+      <div className="flex gap-1 sm:gap-6">
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `text-sm font-medium transition ${
+            `text-xs sm:text-sm font-medium transition ${
               isActive ? "text-blue-600" : "text-gray-600 hover:text-gray-800"
             }`
           }
@@ -41,7 +41,7 @@ export default function Navbar() {
         <NavLink
           to="/create-glossary"
           className={({ isActive }) =>
-            `text-sm font-medium transition ${
+            `text-xs sm:text-sm font-medium transition ${
               isActive ? "text-blue-600" : "text-gray-600 hover:text-gray-800"
             }`
           }
@@ -52,7 +52,7 @@ export default function Navbar() {
         <NavLink
           to="/glossary"
           className={({ isActive }) =>
-            `text-sm font-medium transition ${
+            `text-xs sm:text-sm font-medium transition ${
               isActive ? "text-blue-600" : "text-gray-600 hover:text-gray-800"
             }`
           }
@@ -67,27 +67,27 @@ export default function Navbar() {
           <>
             <button
               onClick={() => setShowProfile(!showProfile)}
-              className="flex items-center gap-2 px-3 py-2 bg-gray-100 rounded-full hover:bg-gray-200 transition"
+              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 bg-gray-100 rounded-full hover:bg-gray-200 transition"
             >
               <img
                 src={`https://ui-avatars.com/api/?name=${encodeURIComponent(
                   storedUser.username
                 )}&background=random`}
                 alt="profile"
-                className="w-8 h-8 rounded-full"
+                className="w-6 h-6 sm:w-8 sm:h-8 rounded-full"
               />
-              <span className="text-sm font-medium text-gray-700">
+              <span className="text-xs sm:text-sm font-medium text-gray-700 hidden sm:inline">
                 {storedUser.username.split(" ")[0]}
               </span>
             </button>
 
             {showProfile && (
-              <div className="absolute right-0 mt-3 w-56 bg-white border rounded-xl shadow-lg p-4 animate-fade-in z-50">
-                <p className="font-semibold text-gray-800 text-sm mb-1">
+              <div className="absolute right-0 mt-2 sm:mt-3 w-48 sm:w-56 bg-white border rounded-xl shadow-lg p-3 sm:p-4 animate-fade-in z-50">
+                <p className="font-semibold text-gray-800 text-xs sm:text-sm mb-1">
                   {storedUser.username}
                 </p>
-                <p className="text-gray-500 text-xs mb-4">{storedUser.email}</p>
-                <hr className="mb-3" />
+                <p className="text-gray-500 text-xs mb-3 sm:mb-4">{storedUser.email}</p>
+                <hr className="mb-2 sm:mb-3" />
                 <Button
                   content="Logout"
                   onClick={handleLogout}

@@ -1,17 +1,17 @@
 export function Button({ disabled, extraClass = "", type = "button", content, ...props }){
     return <button type={type} disabled = {disabled} {...props} 
-        className={`text-gray-900 bg-white border border-gray-300 focus:outline-none 
-        hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-md 
-        px-7 py-2.5 me-2 mb-2 cursor-pointer
-        transition duration-300 ${extraClass} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}>
+    className={`text-gray-900 bg-white border border-gray-300 focus:outline-none 
+    hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm sm:text-md 
+    px-4 sm:px-7 py-2 sm:py-2.5 me-2 mb-2 cursor-pointer
+    transition duration-300 ${extraClass} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}>
             {content}
         </button>
 }
 
 export function LoadingButton(){
     return <button disabled type="button" className="text-gray-900 bg-white border border-gray-300 
-    focus:outline-nonefont-medium rounded-lg text-md px-7 
-    py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 transition duration-300 
+    focus:outline-nonefont-medium rounded-lg text-sm sm:text-md px-4 sm:px-7 
+    py-2 sm:py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 transition duration-300 
     opacity-70 cursor-wait inline-flex items-center justify-center gap-2">
     <svg aria-hidden="true" role="status" className="inline w-4 h-4 text-gray-500 animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path

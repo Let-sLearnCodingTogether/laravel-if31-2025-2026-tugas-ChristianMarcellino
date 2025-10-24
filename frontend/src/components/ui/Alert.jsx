@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 
 const alertBaseStyle = `
-  fixed top-20 left-1/2 transform -translate-x-1/2
-  z-50 flex items-center w-[90%] max-w-lg p-4
-  rounded-xl shadow-lg border transition-all duration-300
+  fixed top-[4.5rem] sm:top-20 left-1/2
+  z-50 flex items-center w-[95%] sm:w-[75%] max-w-2xl p-3 sm:p-4
+  rounded-lg sm:rounded-xl shadow-lg border transition-all duration-300
   animate-fadeIn
 `;
 
 const styles = `
 @keyframes fadeIn {
-  from { opacity: 0; transform: translate(-50%, -10px); }
+  from { opacity: 0; transform: translate(-50%, -20px); }
   to { opacity: 1; transform: translate(-50%, 0); }
 }
 .animate-fadeIn {
@@ -35,19 +35,19 @@ export function AlertInfo({ onClose, color = "blue", alertType, alertContent }) 
   return (
     <div className={`${alertBaseStyle} ${colorMap[color] || colorMap.blue}`}>
       <svg
-        className="shrink-0 w-5 h-5 mr-3"
+        className="shrink-0 w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3"
         fill="currentColor"
         viewBox="0 0 20 20"
       >
         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9 4a1 1 0 1 1 2 0v6a1 1 0 1 1-2 0V4Zm1 10.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5Z" />
       </svg>
-      <div className="flex-1">
+      <div className="flex-1 text-xs sm:text-sm">
         <span className="font-semibold capitalize mr-1">{alertType}:</span>
         {alertContent}
       </div>
       <button
         onClick={onClose}
-        className="ml-3 text-sm px-2 py-1 rounded-md hover:bg-white/50 transition"
+        className="ml-2 sm:ml-3 text-xs sm:text-sm px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md hover:bg-white/50 transition"
       >
         ✕
       </button>
@@ -69,23 +69,23 @@ export function AlertList({ onClose, items = [], title }) {
       role="alert"
     >
       <svg
-        className="shrink-0 w-5 h-5 mr-3"
+        className="shrink-0 w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3"
         fill="currentColor"
         viewBox="0 0 20 20"
       >
         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
       </svg>
-      <div className="flex-1">
+      <div className="flex-1 text-xs sm:text-sm">
         <div className="flex justify-between items-center">
           <p className="font-semibold">{title}</p>
           <button
             onClick={onClose}
-            className="ml-3 text-sm px-2 py-1 rounded-md hover:bg-white/50 transition"
+            className="ml-2 sm:ml-3 text-xs sm:text-sm px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md hover:bg-white/50 transition"
           >
             ✕
           </button>
         </div>
-        <ul className="mt-2 list-disc list-inside text-sm">
+        <ul className="mt-1.5 sm:mt-2 list-disc list-inside text-xs sm:text-sm">
           {items.map((item, index) =>
             item ? <li key={index}>{item}</li> : null
           )}
