@@ -13,9 +13,9 @@ export default function Glossary() {
   const [showErrorAlert, setShowErrorAlert] = useState(false)
   const deleteGlossary = async(id)=>{
     try{
-      fetchGlossaries()
       const response = await http.delete(`/glossary/${id}`)
       setShowAlert(true)
+      fetchGlossaries()
     }catch(error){
       console.log(error)
       setShowErrorAlert(true)
@@ -36,7 +36,7 @@ export default function Glossary() {
 
   useEffect(() => {
     fetchGlossaries();
-  }, [fetchGlossaries]);
+  }, []);
 
   if (loader) {
     return <Loader/>
