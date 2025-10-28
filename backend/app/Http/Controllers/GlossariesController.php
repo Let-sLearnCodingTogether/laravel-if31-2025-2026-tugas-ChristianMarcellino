@@ -53,7 +53,7 @@ class GlossariesController extends Controller
         try {
             return response()->json([
                 'message' => 'Successfully Showing Data',
-                'data' => $glossary->where('user_id' , Auth::user()->id)->get(),
+                'data' => $glossary
             ], 200);
         } catch (Exception $e) {
             return response()->json([
